@@ -21,8 +21,10 @@ class Mat
 		Mat& operator = (Mat &newMat);
 		Mat& operator + (Mat & newMat);
 		Mat& operator - (Mat & newMat);
-		Mat operator -= (Mat & newMat);
-		Mat operator += (Mat & newMat);
+		Mat& operator -= (Mat & newMat);
+		Mat& operator += (Mat & newMat);
+		Mat& operator * (Mat &newMat);
+		Mat& T(void) const; //¾ØÕóµÄ×°ÖÃ  
 	
 	private:
 		private:

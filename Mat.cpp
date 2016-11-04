@@ -41,6 +41,11 @@ void Mat::display(void) const
 
 int& Mat::at(int rows,int cols)
 {
+	if(rows > this->rows || cols > this->cols)
+	{
+		cout<<"Error,³¬³ö·¶Î§\n";
+		exit(0);
+	}
 	return vec[rows][cols];
 }
 
@@ -146,7 +151,7 @@ Mat& Mat::operator - (Mat & newMat)
 	return temp;
 }
 
-Mat Mat::operator -= (Mat & newMat)
+Mat& Mat::operator -= (Mat & newMat)
 {
 	if(newMat.rows != this->rows || newMat.cols != this->cols)
 	{
@@ -165,7 +170,7 @@ Mat Mat::operator -= (Mat & newMat)
 	return *this;
 } 
 
-Mat Mat::operator += (Mat & newMat)
+Mat& Mat::operator += (Mat & newMat)
 {
 	if(newMat.rows != this->rows || newMat.cols != this->cols)
 	{
@@ -182,6 +187,40 @@ Mat Mat::operator += (Mat & newMat)
 		
 	}
 	return *this;
+} 
+
+Mat& Mat::operator * (Mat &newMat)
+{
+	if(this->cols != newMat.rows)
+	{
+		cout<<"³ß´ç´íÎó£¬ÎÞ·¨Ïà³Ë";
+		exit(0);
+	}
+	static Mat temp(this->rows,newMat.cols);
+	for(int i = 0;i < temp.rows; i++)
+	{
+		for(int j = 0;j < temp.cols; j++)
+		{
+			for(int k = 0;k < this->cols;k++)
+			{
+				temp.vec[i][j] += (this->vec[i][k] + newMat.vec[k][j]);
+			}
+		}
+	}
+	return temp;
+}
+
+Mat& Mat::T(void)const //¾ØÕóµÄ×°ÖÃ 
+{
+	static Mat temp(this->cols,this->rows);
+	for(int i = 0;i < temp.rows; i++)
+	{
+		for(int j = 0;j < temp.cols; j++)
+		{
+			temp.vec[i][j] = this->vec[j][i];
+		}
+	}
+	return temp;
 } 
 
 
